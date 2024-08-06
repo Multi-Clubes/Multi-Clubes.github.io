@@ -338,7 +338,7 @@
         const taxaAdquirenteCartao = parseFloat(document.getElementById('taxaAdquirenteCartao').value) / 100 || 0;
 
         const pix = (associados * valorMensalidade * (1 - inadimplencia)) - (associados * (1 - inadimplencia) * 1.17);
-        const cartao = ((associados * valorMensalidade) * (1 - inadimplencia)) * (1 - taxaAdquirenteCartao * (1 - inadimplencia) * 1.17);
+        const cartao = ((associados * valorMensalidade) * (1 - inadimplencia)) * (1 - taxaAdquirenteCartao) - (associados * (1 - inadimplencia) * 1.17);
         const boletos = ((associados * valorMensalidade) * (1 - inadimplencia)) - (associados * (custoRegistroBoleto + custoBaixaBoleto));
 
         function formatarMoeda(valor) {
