@@ -3,108 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de ROI Multiclubes</title>
+    <title>Calculadora de ROI MultiClubes</title>
     <style>
         /* Estilos básicos */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: x-large;
-            margin: 0;
+            font-family: "Poppins", sans-serif;
+            font-size: 1rem;
             padding: 0;
-            background-color: #505b68;
-            overflow-x: hidden; /* Remove a barra de rolagem horizontal */
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
+            color: #001B62;
         }
 
         .container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #fff;
+            justify-content: space-between;
+            align-items: flex-start;
             padding: 20px;
-            border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
+            width: 100%;
             max-width: 1200px;
-            margin: 20px auto; /* Adiciona margem ao redor do container */
+            margin: 0 auto;
             box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            flex-direction: row;
+        }
+
+        /* Estilos do menu */
+        nav {
+            width: 100%;
+            background-color: rgba(0, 27, 98, 0.9);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: nowrap;
+            margin: 0;
+            padding: 0;
+            gap: 10px; /* Espaçamento entre os botões */
+        }
+
+        nav ul li {
+            margin-left: 0; /* Remover margem à esquerda dos itens */
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background-color: #ee9000;
+            color: #ffffff;
+        }
+
+        .content {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
         }
 
         .form-section {
-            width: 100%;
-            display: flex;
+            width: 70%;
+        }
+
+        .results-section {
+            width: 28%;
+            display: none; /* Esconder resultados até o cálculo */
             flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: space-around;
+            justify-content: space-around;
             align-items: center;
+            gap: 10px;
         }
 
         h1 {
             text-align: center;
             margin-bottom: 20px;
             font-size: 2rem;
+            color: #001B62;
         }
 
         .form-container {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 20px;
             width: 100%;
         }
 
         .form-row {
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            flex-direction: row;
+            align-content: space-around;
+            justify-content: space-evenly;
+            align-items: stretch;
+            gap: 20px;
             width: 100%;
-            flex-wrap: wrap;
         }
 
         .form-group {
-            background-color: #00a6e5;
-            color: rgb(255, 255, 255);
+            background-color: #234dc1;
+            color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            text-align: start;
+            padding: 10px; /* Reduzir o padding */
+            text-align: center; 
             transition: transform 0.3s ease;
-            width: 100%;
-            max-width: 280px;
+            flex: 1;
+            max-width: 200px; /* Reduzir a largura máxima */
             box-sizing: border-box;
+            position: relative;
         }
 
         .form-group:hover {
             transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
+            margin-bottom: 5px; /* Reduzir a margem inferior */
+            font-size: 1rem; /* Reduzir o tamanho da fonte */
+            cursor: pointer;
+            position: relative;
         }
 
         .form-group input {
             width: 100%;
-            padding: 8px;
-            font-size: 1rem;
-            border: none;
+            padding: 8px; /* Reduzir o padding */
+            font-size: 0.9rem; /* Reduzir o tamanho da fonte */
+            border: 2px solid transparent;
             border-radius: 5px;
             outline: none;
+            background-color: #ffffff;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 8px; /* Reduzir a margem inferior */
         }
 
-        .form-group i {
-            font-size: 2.0rem;
-            margin-bottom: 1px;
+        .input-row {
             display: flex;
-            margin-right: 12px; /* Aumenta o espaço entre o ícone e o input */
+            align-items: center; /* Centraliza os ícones */
+            justify-content: center; /* Centraliza a linha */
+            gap: 10px; /* Reduzir espaçamento para centralizar melhor */
         }
 
         .input-container {
+            flex-grow: 1;
             display: flex;
             align-items: center;
             background-color: white;
-            padding: 5px;
+            padding: 4px; /* Reduzir o padding */
             border-radius: 5px;
-            min-width: 120px;
-            max-width: 140px;
-            width: 100%;
             box-sizing: border-box;
         }
 
@@ -113,112 +184,160 @@
             outline: none;
             width: 100%;
             font-size: 1rem;
+            background-color: transparent;
+        }
+
+        .input-container input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .input-container input[type="number"]::-webkit-outer-spin-button,
+        .input-container input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
         }
 
         .btn {
-            margin-top: 20px;
             display: block;
-            padding: 10px;
-            background-color: #AAE692;
-            color: rgb(0, 0, 0);
-            font-size: 1.2rem;
+            padding: 8px; /* Reduzido para menor tamanho */
+            background-color: #ffaa44;
+            color: #ffffff;
+            font-size: 0.9rem; /* Tamanho de fonte reduzido */
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 50%;
-            margin: 16px auto;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            max-width: 200px; /* Tamanho máximo reduzido */
+            margin: 20px auto;
+            width: 100%;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn:hover {
-            background-color: #23c13a;
+            background-color: #234dc1;
+            transform: scale(1.05);
         }
 
-        .additional-cards {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .additional-card,
-        .additional-card-cartao {
-            background-color: #ffa308;
-            color: rgb(0, 0, 0);
+        .results {
+            padding: 15px;
+            color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            flex: 1;
-            min-width: 150px;
-            max-width: 220px;
-            text-align: center;
+            text-align: left;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
         }
 
-        .result {
-            margin-top: 20px;
+        .results.pix {
+            background-color: #59ccb9; 
+            color: #ffffff;
+        }
+
+        .results.cartao {
+            background-color: #f7be13c7;
+            color: #ffffff;
+        }
+
+        .results.boleto {
+            background-color:#cbcbcb;
+            color: #ffffff;
+        }
+
+        .result-comparison p {
             font-size: 1.2rem;
-            text-align: center;
+            margin: 5px 0;
+        }
+
+        .highlight {
+            background-color: #ffaa44;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
         }
 
         .redirect-button {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            font-size: 1.5rem;
-            border: none;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #001B62;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 700;
             border-radius: 5px;
-            text-align: center;
             text-decoration: none;
-            cursor: pointer;
             transition: background-color 0.3s ease;
-            width: 50%;
-            margin: 16px auto;
         }
 
         .redirect-button:hover {
-            background-color: #0056b3;
-        }
-
-        .input-row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-
-        .form-row-radio {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-        }
-
-        .lower-section {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            width: 100%;
-        }
-
-        .lower-paragraph {
-            font-size: 18px;
-            line-height: 120%;
-            align-content: center;
-            display: flex;
-            justify-content: center;
+            background-color: #234dc1;
         }
 
         img {
             display: block;
-            margin: 0 auto 20px auto;
             max-width: 100%;
             height: auto;
-            width: 200px;
+        }
+
+        /* Estilos para tooltip */
+        .form-group label:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .form-group label:hover::after {
+            opacity: 1;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-section, .results-section {
+                width: 100%;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start; /* Alinhar itens à esquerda em telas menores */
+            }
+
+            nav ul {
+                width: 100%;
+                justify-content: flex-end; /* Alinhar os botões à direita */
+                gap: 10px;
+            }
+
+            nav ul li {
+                margin-left: 10px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .form-group {
+                max-width: 100%;
+            }
         }
     </style>
     <!-- Link para ícones -->
@@ -226,107 +345,127 @@
 </head>
 <body>
 
+<!-- Adicionando o menu -->
+<nav>
+    <img src="https://site.multiclubes.com.br/wp-content/uploads/2023/07/Logo-oficial-MultiClubes.png" alt="Logo MultiClubes">
+    <ul>
+        <li><a href="https://site.multiclubes.com.br/home/" target="_blank" class="redirect-button">Site</a></li>
+        <li><a href="https://api.whatsapp.com/send/?phone=552433500839&text=Ol%C3%A1!%20Estava%20no%20site%20do%20MultiClubes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank" class="redirect-button">Entre em contato conosco</a></li>
+    </ul>
+</nav>
+
 <div class="container">
-    <div class="form-section">
-        <img src="Ativo 1 logo multiclubes.png" alt="Logo MultiClubes">
-        <h1>Economize agora! 🤑</h1>
-        <div class="form-container">
-            <!-- Primeira linha de cards -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="associados">Associados</label>
-                    <div class="input-row">
-                        <i class="fas fa-user"></i>
-                        <div class="input-container">
-                            <input type="number" id="associados" name="associados" required>
+    <div class="content">
+        <div class="form-section">
+            <!-- Conteúdo da página -->
+            <h1>Calcule sua receita e veja sua economia!</h1>
+
+            <div class="form-container">
+                <!-- Primeira linha de cards -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="associados" data-tooltip="Número total de associados que pagarão a mensalidade.">Associados</label>
+                        <div class="input-row">
+                            <i class="fas fa-user"></i>
+                            <div class="input-container">
+                                <input type="number" id="associados" name="associados" min="0" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="valorMensalidade" data-tooltip="Valor mensal pago por cada associado.">Valor Mensalidade</label>
+                        <div class="input-row">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div class="input-container">
+                                <input type="number" id="valorMensalidade" name="valorMensalidade" min="0" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="custoRegistroBoleto" data-tooltip="Custo para registrar cada boleto bancário.">Custo de Registro do Boleto</label>
+                        <div class="input-row">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <div class="input-container">
+                                <input type="number" id="custoRegistroBoleto" name="custoRegistroBoleto" min="0">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="valorMensalidade">Valor Mensalidade</label>
-                    <div class="input-row">
-                        <i class="fas fa-dollar-sign"></i>
-                        <div class="input-container">
-                            <input type="number" id="valorMensalidade" name="valorMensalidade" required>
+                <!-- Segunda linha de cards -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="inadimplencia" data-tooltip="Percentual de inadimplência esperado.">Inadimplência (%)</label>
+                        <div class="input-row">
+                            <i class="fas fa-times-circle"></i>
+                            <div class="input-container">
+                                <input type="number" id="inadimplencia" name="inadimplencia" min="0" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="custoBaixaBoleto" data-tooltip="Custo para dar baixa em um boleto após pagamento.">Custo de Baixa do Boleto</label>
+                        <div class="input-row">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <div class="input-container">
+                                <input type="number" id="custoBaixaBoleto" name="custoBaixaBoleto" min="0" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="taxaAdquirenteCartao" data-tooltip="Taxa cobrada pela adquirente sobre pagamentos com cartão de crédito.">Taxa Adquirente do Cartão de Crédito (%)</label>
+                        <div class="input-row">
+                            <i class="fas fa-credit-card"></i>
+                            <div class="input-container">
+                                <input type="number" id="taxaAdquirenteCartao" name="taxaAdquirenteCartao" min="0" required>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="custoRegistroBoleto">Custo de Registro do Boleto</label>
-                    <div class="input-row">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                        <div class="input-container">
-                            <input type="number" id="custoRegistroBoleto" name="custoRegistroBoleto">
-                        </div>
-                    </div>
+
+                <button type="submit" class="btn">Calcular</button>
+            </div>
+        </div>
+
+        <!-- Coluna de Resultados -->
+        <div class="results-section">
+            <!-- Resultados Pix -->
+            <div class="results pix">
+                <i class="fas fa-bolt"></i>
+                <div class="result-comparison">
+                    <p>Pix:</p>
+                    <p>em 3 meses: <span id="resultado-pix-3"></span></p>
+                    <p>em 6 meses: <span id="resultado-pix-6"></span></p>
+                    <p>em 12 meses: <span id="resultado-pix-12"></span></p>
                 </div>
             </div>
-            <!-- Segunda linha de cards -->
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="inadimplencia">Inadimplência (%)</label>
-                    <div class="input-row">
-                        <i class="fas fa-times-circle"></i>
-                        <div class="input-container">
-                            <input type="number" id="inadimplencia" name="inadimplencia" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="custoBaixaBoleto">Custo de Baixa do Boleto</label>
-                    <div class="input-row">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                        <div class="input-container">
-                            <input type="number" id="custoBaixaBoleto" name="custoBaixaBoleto" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="taxaAdquirenteCartao">Taxa Adquirente do Cartão de Crédito (%)</label>
-                    <div class="input-row">
-                        <i class="fas fa-credit-card"></i>
-                        <div class="input-container">
-                            <input type="number" id="taxaAdquirenteCartao" name="taxaAdquirenteCartao" required>
-                        </div>
-                    </div>
+
+            <!-- Resultados Cartão -->
+            <div class="results cartao">
+                <i class="fas fa-credit-card"></i>
+                <div class="result-comparison">
+                    <p>Cartão:</p>
+                    <p>em 3 meses: <span id="resultado-cartao-3"></span></p>
+                    <p>em 6 meses: <span id="resultado-cartao-6"></span></p>
+                    <p>em 12 meses: <span id="resultado-cartao-12"></span></p>
                 </div>
             </div>
 
-            <button type="submit" class="btn">Calcular</button>
-
-            <section class="lower-section">
-                <div class="additional-cards">
-                    <div class="additional-card">
-                        <h3>Pix</h3>
-                        <p>Sua Receita em</p>
-                        <p>3 Meses: <span id="resultado-pix-3"></span></p> 
-                        <p>6 Meses: <span id="resultado-pix-6"></span></p>
-                        <p>12 Meses: <span id="resultado-pix-12"></span></p>
-                    </div>
-                    <div class="additional-card">
-                        <h3>Cartão</h3>
-                        <p>Sua Receita em</p>
-                        <p>3 Meses: <span id="resultado-cartao-3"></span></p> 
-                        <p>6 Meses: <span id="resultado-cartao-6"></span></p>
-                        <p>12 Meses: <span id="resultado-cartao-12"></span></p>
-                    </div>
-                    <div class="additional-card-cartao">
-                        <h3>Boleto</h3>
-                        <p>Sua Receita em</p>
-                        <p>3 Meses: <span id="resultado-boleto-3"></span></p> 
-                        <p>6 Meses: <span id="resultado-boleto-6"></span></p>
-                        <p>12 Meses: <span id="resultado-boleto-12"></span></p>
-                    </div>
+            <!-- Resultados Boleto -->
+            <div class="results boleto">
+                <i class="fas fa-file-invoice"></i>
+                <div class="result-comparison">
+                    <p>Boleto:</p>
+                    <p>em 3 meses: <span id="resultado-boleto-3"></span></p>
+                    <p>em 6 meses: <span id="resultado-boleto-6"></span></p>
+                    <p>em 12 meses: <span id="resultado-boleto-12"></span></p>
                 </div>
-
-                <a href="https://api.whatsapp.com/send/?phone=552433500839&text=Ol%C3%A1!%20Estava%20no%20site%20do%20MultiClubes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank" class="redirect-button">Entre em contato conosco</a>
-            </section>  
+            </div>
         </div>
     </div>
 </div>
 
+<!-- Provided JavaScript -->
 <script>
-
     document.querySelector('.btn').addEventListener('click', function(event) {
         event.preventDefault();
 
@@ -368,6 +507,9 @@
         boletoResultado3Meses.textContent = formatarMoeda(boletos * 3);
         boletoResultado6Meses.textContent = formatarMoeda(boletos * 6);
         boletoResultado12Meses.textContent = formatarMoeda(boletos * 12);
+
+        // Exibir resultados
+        document.querySelector('.results-section').style.display = 'flex';
 
         console.log('Pix: ', formatarMoeda(pix));
         console.log('Cartão: ', formatarMoeda(cartao));
