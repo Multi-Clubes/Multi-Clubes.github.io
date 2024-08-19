@@ -13,25 +13,11 @@
             margin: 0;
             position: relative;
             overflow-x: hidden;
-            color: #001B62;
+            color: #625000;
+            background-image: url("1080\ -\ CARROSSEL\ \(1\).png"); 
+            background-repeat: no-repeat;
         }
 
-        .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            box-sizing: border-box;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            flex-direction: row;
-        }
-
-        /* Estilos do menu */
         nav {
             width: 100%;
             background-color: rgba(0, 27, 98, 0.9);
@@ -46,7 +32,7 @@
         }
 
         nav img {
-            max-width: 200px;
+            max-width: 150px; /* Ajuste o tamanho da imagem */
             height: auto;
         }
 
@@ -56,7 +42,7 @@
             flex-wrap: nowrap;
             margin: 0;
             padding: 0;
-            gap: 10px; /* Espaçamento entre os botões */
+            gap: 15px; /* Espaçamento entre os botões */
         }
 
         nav ul li {
@@ -66,21 +52,52 @@
         nav ul li a {
             text-decoration: none;
             color: white;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-            padding: 5px 10px;
-            border-radius: 5px;
+            font-size: 0.9rem; /* Reduzir o tamanho da fonte */
+            transition: all 0.3s ease;
+            padding: 8px 20px; /* Ajuste o padding para um tamanho mais uniforme */
+            border-radius: 20px; /* Bordas arredondadas */
+            background-color: #3252b3;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         nav ul li a:hover {
             background-color: #ee9000;
             color: #ffffff;
+            transform: translateY(-2px); /* Efeito de hover semelhante ao site */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                justify-content: flex-end;
+                gap: 10px;
+            }
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+            border-radius: 10px;
+            flex-direction: row;
+            overflow: hidden;
+            background-image: url("1080\ -\ CARROSSEL\ \(1\).png"); /* Imagem de fundo */
+            background-size: 150%; /* Ajustar o tamanho da imagem de fundo */
+            background-repeat: no-repeat;
+            background-position: center;
         }
 
         .content {
             display: flex;
             width: 100%;
             justify-content: space-between;
+            color: white;
         }
 
         .form-section {
@@ -91,7 +108,6 @@
             width: 28%;
             display: none; /* Esconder resultados até o cálculo */
             flex-direction: column;
-            flex-wrap: nowrap;
             align-content: space-around;
             justify-content: space-around;
             align-items: center;
@@ -102,7 +118,7 @@
             text-align: center;
             margin-bottom: 20px;
             font-size: 2rem;
-            color: #001B62;
+            color: #ffffff;
         }
 
         .form-container {
@@ -123,15 +139,15 @@
         }
 
         .form-group {
-            background-color: #234dc1;
+            background-color: #5A738E;
             color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 10px; /* Reduzir o padding */
-            text-align: center; 
+            padding: 10px;
+            text-align: center;
             transition: transform 0.3s ease;
             flex: 1;
-            max-width: 200px; /* Reduzir a largura máxima */
+            max-width: 200px;
             box-sizing: border-box;
             position: relative;
         }
@@ -143,30 +159,30 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 5px; /* Reduzir a margem inferior */
-            font-size: 1rem; /* Reduzir o tamanho da fonte */
+            margin-bottom: 5px;
+            font-size: 1rem;
             cursor: pointer;
             position: relative;
         }
 
         .form-group input {
             width: 100%;
-            padding: 8px; /* Reduzir o padding */
-            font-size: 0.9rem; /* Reduzir o tamanho da fonte */
+            padding: 8px;
+            font-size: 0.9rem;
             border: 2px solid transparent;
             border-radius: 5px;
             outline: none;
             background-color: #ffffff;
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            margin-bottom: 8px; /* Reduzir a margem inferior */
+            margin-bottom: 8px;
         }
 
         .input-row {
             display: flex;
-            align-items: center; /* Centraliza os ícones */
-            justify-content: center; /* Centraliza a linha */
-            gap: 10px; /* Reduzir espaçamento para centralizar melhor */
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .input-container {
@@ -174,7 +190,7 @@
             display: flex;
             align-items: center;
             background-color: white;
-            padding: 4px; /* Reduzir o padding */
+            padding: 4px;
             border-radius: 5px;
             box-sizing: border-box;
         }
@@ -187,27 +203,17 @@
             background-color: transparent;
         }
 
-        .input-container input[type="number"] {
-            -moz-appearance: textfield;
-        }
-
-        .input-container input[type="number"]::-webkit-outer-spin-button,
-        .input-container input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-
         .btn {
             display: block;
-            padding: 8px; /* Reduzido para menor tamanho */
-            background-color: #ffaa44;
+            padding: 8px;
+            background-color: #ee9000;
             color: #ffffff;
-            font-size: 0.9rem; /* Tamanho de fonte reduzido */
+            font-size: 0.9rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.3s ease;
-            max-width: 200px; /* Tamanho máximo reduzido */
+            max-width: 200px;
             margin: 20px auto;
             width: 100%;
             text-align: center;
@@ -233,18 +239,15 @@
         }
 
         .results.pix {
-            background-color: #59ccb9; 
-            color: #ffffff;
+            background-color: #76c7c0;
         }
 
         .results.cartao {
-            background-color: #f7be13c7;
-            color: #ffffff;
+            background-color: #67d889;
         }
 
         .results.boleto {
-            background-color:#cbcbcb;
-            color: #ffffff;
+            background-color: #bdc3c7; /* Cinza Claro */
         }
 
         .result-comparison p {
@@ -259,49 +262,18 @@
             border-radius: 5px;
         }
 
-        .redirect-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #001B62;
+        .highlight-superior {
+            background-color: #40a758;
             color: #ffffff;
-            font-size: 1rem;
-            font-weight: 700;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .redirect-button:hover {
-            background-color: #234dc1;
+            padding: 2px;
+            border-radius: 2px;
+            font-weight: bold;
         }
 
         img {
             display: block;
             max-width: 100%;
             height: auto;
-        }
-
-        /* Estilos para tooltip */
-        .form-group label:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #333;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
-            white-space: nowrap;
-            font-size: 0.8rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 10;
-        }
-
-        .form-group label:hover::after {
-            opacity: 1;
         }
 
         /* Estilos responsivos */
@@ -317,12 +289,12 @@
 
             nav {
                 flex-direction: column;
-                align-items: flex-start; /* Alinhar itens à esquerda em telas menores */
+                align-items: flex-start;
             }
 
             nav ul {
                 width: 100%;
-                justify-content: flex-end; /* Alinhar os botões à direita */
+                justify-content: flex-end;
                 gap: 10px;
             }
 
@@ -349,8 +321,8 @@
 <nav>
     <img src="https://site.multiclubes.com.br/wp-content/uploads/2023/07/Logo-oficial-MultiClubes.png" alt="Logo MultiClubes">
     <ul>
-        <li><a href="https://site.multiclubes.com.br/home/" target="_blank" class="redirect-button">Site</a></li>
-        <li><a href="https://api.whatsapp.com/send/?phone=552433500839&text=Ol%C3%A1!%20Estava%20no%20site%20do%20MultiClubes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank" class="redirect-button">Entre em contato conosco</a></li>
+        <li><a href="https://site.multiclubes.com.br/home/" target="_blank">Site</a></li>
+        <li><a href="https://api.whatsapp.com/send/?phone=552433500839&text=Ol%C3%A1!%20Estava%20no%20site%20do%20MultiClubes%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank">Entre em contato conosco</a></li>
     </ul>
 </nav>
 
@@ -394,7 +366,7 @@
                 <!-- Segunda linha de cards -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="inadimplencia" data-tooltip="Percentual de inadimplência esperado.">Inadimplência (%)</label>
+                        <label for="inadimplencia" data-tooltip="Percentual de inadimplência esperado.">Inadimplência (%)<br></label>
                         <div class="input-row">
                             <i class="fas fa-times-circle"></i>
                             <div class="input-container">
@@ -496,6 +468,11 @@
         const boletoResultado6Meses = document.getElementById('resultado-boleto-6');
         const boletoResultado12Meses = document.getElementById('resultado-boleto-12');
 
+        // Comparar os resultados e adicionar destaque apenas à opção com valor superior
+        const max3Meses = Math.max(pix * 3, cartao * 3, boletos * 3);
+        const max6Meses = Math.max(pix * 6, cartao * 6, boletos * 6);
+        const max12Meses = Math.max(pix * 12, cartao * 12, boletos * 12);
+
         pixResultado3Meses.textContent = formatarMoeda(pix * 3);
         pixResultado6Meses.textContent = formatarMoeda(pix * 6);
         pixResultado12Meses.textContent = formatarMoeda(pix * 12);
@@ -507,6 +484,30 @@
         boletoResultado3Meses.textContent = formatarMoeda(boletos * 3);
         boletoResultado6Meses.textContent = formatarMoeda(boletos * 6);
         boletoResultado12Meses.textContent = formatarMoeda(boletos * 12);
+
+        // Resetar todos os destaques
+        pixResultado3Meses.classList.remove('highlight-superior');
+        pixResultado6Meses.classList.remove('highlight-superior');
+        pixResultado12Meses.classList.remove('highlight-superior');
+        cartaoResultado3Meses.classList.remove('highlight-superior');
+        cartaoResultado6Meses.classList.remove('highlight-superior');
+        cartaoResultado12Meses.classList.remove('highlight-superior');
+        boletoResultado3Meses.classList.remove('highlight-superior');
+        boletoResultado6Meses.classList.remove('highlight-superior');
+        boletoResultado12Meses.classList.remove('highlight-superior');
+
+        // Aplicar destaque apenas à opção com valor superior
+        if (pix * 3 === max3Meses) pixResultado3Meses.classList.add('highlight-superior');
+        else if (cartao * 3 === max3Meses) cartaoResultado3Meses.classList.add('highlight-superior');
+        else if (boletos * 3 === max3Meses) boletoResultado3Meses.classList.add('highlight-superior');
+
+        if (pix * 6 === max6Meses) pixResultado6Meses.classList.add('highlight-superior');
+        else if (cartao * 6 === max6Meses) cartaoResultado6Meses.classList.add('highlight-superior');
+        else if (boletos * 6 === max6Meses) boletoResultado6Meses.classList.add('highlight-superior');
+
+        if (pix * 12 === max12Meses) pixResultado12Meses.classList.add('highlight-superior');
+        else if (cartao * 12 === max12Meses) cartaoResultado12Meses.classList.add('highlight-superior');
+        else if (boletos * 12 === max12Meses) boletoResultado12Meses.classList.add('highlight-superior');
 
         // Exibir resultados
         document.querySelector('.results-section').style.display = 'flex';
