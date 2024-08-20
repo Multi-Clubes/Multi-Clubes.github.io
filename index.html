@@ -13,13 +13,12 @@
             margin: 0;
             position: relative;
             overflow-x: hidden;
-            color: #625000;
             background-image: url("1080\ -\ CARROSSEL\ \(1\).png"); 
             background-repeat: no-repeat;
         }
 
         nav {
-            width: 100%;
+            width: 97%;
             background-color: rgba(0, 27, 98, 0.9);
             padding: 10px 20px;
             display: flex;
@@ -102,12 +101,28 @@
 
         .form-section {
             width: 70%;
+            position: relative; /* Necessário para o tooltip */
+        }
+
+        .tooltip {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: nowrap;
+            display: none; /* Começa oculto */
+            z-index: 100;
         }
 
         .results-section {
             width: 28%;
             display: none; /* Esconder resultados até o cálculo */
             flex-direction: column;
+            flex-wrap: nowrap;
             align-content: space-around;
             justify-content: space-around;
             align-items: center;
@@ -139,7 +154,7 @@
         }
 
         .form-group {
-            background-color: #3e536a;
+            background-color: #5A738E;
             color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -243,11 +258,11 @@
         }
 
         .results.cartao {
-            background-color: #4e8e61;
+            background-color: #67d889;
         }
 
         .results.boleto {
-            background-color: #9f9f9f; 
+            background-color: #bdc3c7; /* Cinza Claro */
         }
 
         .result-comparison p {
@@ -317,6 +332,7 @@
 </head>
 <body>
 
+<!-- Adicionando o menu -->
 <nav>
     <img src="https://site.multiclubes.com.br/wp-content/uploads/2023/07/Logo-oficial-MultiClubes.png" alt="Logo MultiClubes">
     <ul>
@@ -328,14 +344,17 @@
 <div class="container">
     <div class="content">
         <div class="form-section">
+            <!-- Tooltip -->
+            <div id="tooltip" class="tooltip"></div>
+
             <!-- Conteúdo da página -->
             <h1>Calcule sua receita e veja sua economia!</h1>
 
             <div class="form-container">
                 <!-- Primeira linha de cards -->
                 <div class="form-row">
-                    <div class="form-group">
-                        <label for="associados" data-tooltip="Número total de associados que pagarão a mensalidade.">Associados</label>
+                    <div class="form-group" data-tooltip="Número total de associados que pagarão a mensalidade.">
+                        <label for="associados">Associados</label>
                         <div class="input-row">
                             <i class="fas fa-user"></i>
                             <div class="input-container">
@@ -343,8 +362,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="valorMensalidade" data-tooltip="Valor mensal pago por cada associado.">Valor Mensalidade</label>
+                    <div class="form-group" data-tooltip="Valor mensal pago por cada associado.">
+                        <label for="valorMensalidade">Valor Mensalidade</label>
                         <div class="input-row">
                             <i class="fas fa-dollar-sign"></i>
                             <div class="input-container">
@@ -352,8 +371,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="custoRegistroBoleto" data-tooltip="Custo para registrar cada boleto bancário.">Custo de Registro do Boleto</label>
+                    <div class="form-group" data-tooltip="Custo para registrar cada boleto bancário.">
+                        <label for="custoRegistroBoleto">Custo de Registro do Boleto</label>
                         <div class="input-row">
                             <i class="fas fa-file-invoice-dollar"></i>
                             <div class="input-container">
@@ -364,8 +383,8 @@
                 </div>
                 <!-- Segunda linha de cards -->
                 <div class="form-row">
-                    <div class="form-group">
-                        <label for="inadimplencia" data-tooltip="Percentual de inadimplência esperado.">Inadimplência (%)<br></label>
+                    <div class="form-group" data-tooltip="Percentual de inadimplência esperado.">
+                        <label for="inadimplencia">Inadimplência (%)</label>
                         <div class="input-row">
                             <i class="fas fa-times-circle"></i>
                             <div class="input-container">
@@ -373,8 +392,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="custoBaixaBoleto" data-tooltip="Custo para dar baixa em um boleto após pagamento.">Custo de Baixa do Boleto</label>
+                    <div class="form-group" data-tooltip="Custo para dar baixa em um boleto após pagamento.">
+                        <label for="custoBaixaBoleto">Custo de Baixa do Boleto</label>
                         <div class="input-row">
                             <i class="fas fa-file-invoice-dollar"></i>
                             <div class="input-container">
@@ -382,8 +401,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="taxaAdquirenteCartao" data-tooltip="Taxa cobrada pela adquirente sobre pagamentos com cartão de crédito.">Taxa Adquirente do Cartão de Crédito (%)</label>
+                    <div class="form-group" data-tooltip="Taxa cobrada pela adquirente sobre pagamentos com cartão de crédito.">
+                        <label for="taxaAdquirenteCartao">Taxa Adquirente do Cartão de Crédito (%)</label>
                         <div class="input-row">
                             <i class="fas fa-credit-card"></i>
                             <div class="input-container">
@@ -437,6 +456,25 @@
 
 <!-- Provided JavaScript -->
 <script>
+    const tooltip = document.getElementById('tooltip');
+    const formGroups = document.querySelectorAll('.form-group');
+
+    formGroups.forEach(group => {
+        group.addEventListener('mouseover', function() {
+            tooltip.innerText = group.getAttribute('data-tooltip');
+            tooltip.style.display = 'block';
+        });
+
+        group.addEventListener('mousemove', function(event) {
+            tooltip.style.left = event.pageX + 'px';
+            tooltip.style.top = event.pageY - 60 + 'px';
+        });
+
+        group.addEventListener('mouseout', function() {
+            tooltip.style.display = 'none';
+        });
+    });
+
     document.querySelector('.btn').addEventListener('click', function(event) {
         event.preventDefault();
 
